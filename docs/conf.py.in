@@ -1,0 +1,66 @@
+import datetime
+import sys
+
+# -- Path setup --------------------------------------------------------------
+
+sys.path.insert(0, r'@CMAKE_CURRENT_SOURCE_DIR@')
+
+# -- Project information -----------------------------------------------------
+
+project = '@PROJECT_NAME@'
+now = datetime.datetime.now()
+author = 'Vitalii Shylienkov'
+copyright = '%d. %s' % (now.year, author)
+version = '@PROJECT_VERSION_MAJOR@'  # feature version
+release = '@PROJECT_VERSION@'  # full version string
+
+# -- General configuration ---------------------------------------------------
+
+extensions = ['sphinxcontrib.moderncmakedomain', 'sphinx.ext.intersphinx']
+
+master_doc = 'index'
+
+templates_path = ['@CMAKE_CURRENT_SOURCE_DIR@/templates']
+
+primary_domain = None
+
+intersphinx_mapping = {
+    'cmake_latest': ('https://cmake.org/cmake/help/latest/', None),
+}
+
+# Sphinx will warn about all references where the target cannot be found.
+nitpicky = True
+
+highlight_language = 'none'
+
+# -- Options for HTML output -------------------------------------------------
+
+html_show_sourcelink = True
+html_static_path = ['@CMAKE_CURRENT_SOURCE_DIR@/static']
+html_css_files = ['cmake.css']
+html_title = '%s %s' % (project, release)
+html_short_title = '%s' % release
+
+html_style = 'cmake.css'
+html_theme = 'default'
+html_theme_options = {
+    'footerbgcolor':    '#00182d',
+    'footertextcolor':  '#ffffff',
+    'sidebarbgcolor':   '#e4ece8',
+    'sidebarbtncolor':  '#00a94f',
+    'sidebartextcolor': '#333333',
+    'sidebarlinkcolor': '#00a94f',
+    'relbarbgcolor':    '#00529b',
+    'relbartextcolor':  '#ffffff',
+    'relbarlinkcolor':  '#ffffff',
+    'bgcolor':          '#ffffff',
+    'textcolor':        '#444444',
+    'headbgcolor':      '#f2f2f2',
+    'headtextcolor':    '#003564',
+    'headlinkcolor':    '#3d8ff2',
+    'linkcolor':        '#2b63a8',
+    'visitedlinkcolor': '#2b63a8',
+    'codebgcolor':      '#eeeeee',
+    'codetextcolor':    '#333333',
+}
+html_favicon = '@CMAKE_CURRENT_SOURCE_DIR@/static/cmake-favicon.ico'

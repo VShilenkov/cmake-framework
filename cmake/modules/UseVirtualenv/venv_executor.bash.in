@@ -1,0 +1,7 @@
+#!@UseVirtualenv_driver@
+
+program="$1"
+shift
+arguments="$@"
+
+@UseVirtualenv_driver@ -c ". @UseVirtualenv_activator_EXECUTABLE@ && $program $arguments"
