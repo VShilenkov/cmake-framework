@@ -1,3 +1,5 @@
+.. _cmake-framework-modules:
+
 .. only:: license
 
     Copyright 2017-2022 Vitalii Shylienkov
@@ -20,29 +22,26 @@
     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
     DEALINGS IN THE SOFTWARE.
 
-CMake Framework Documentation
-=============================
+Modules
+-------
 
-Reference Manuals
-#################
+Utility Modules
+^^^^^^^^^^^^^^^
+
+These modules are loaded using the 
+:cmake:command:`include() <cmake_latest:command:include>` command.
+
+
+
+Find Modules
+^^^^^^^^^^^^
+
+These modules search for third-party software.
+They are normally called through the 
+:cmake:command:`find_package() <cmake_latest:command:find_package>` command.
 
 .. toctree::
    :maxdepth: 1
 
-   /manual/cmake-framework-env-variables
-   /manual/cmake-framework-modules
-   /manual/cmake-framework-variables
+   /module/FindBash
 
-Misc
-####
-
-.. toctree::
-   :maxdepth: 1
-
-   CMake intersphinx Examples <intersphinx>
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`search`

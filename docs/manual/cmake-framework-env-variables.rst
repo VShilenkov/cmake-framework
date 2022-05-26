@@ -1,3 +1,5 @@
+.. _cmake-framework-env-variables:
+
 .. only:: license
 
     Copyright 2017-2022 Vitalii Shylienkov
@@ -20,29 +22,16 @@
     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
     DEALINGS IN THE SOFTWARE.
 
-CMake Framework Documentation
-=============================
+Environment Variables
+---------------------
 
-Reference Manuals
-#################
+This page lists environment variables that have special
+meaning to CMake-Framework.
 
-.. toctree::
-   :maxdepth: 1
-
-   /manual/cmake-framework-env-variables
-   /manual/cmake-framework-modules
-   /manual/cmake-framework-variables
-
-Misc
-####
+For general information on environment variables, see the
+:ref:`Environment Variables <cmake_latest:cmake language environment variables>`
+section in the cmake-language manual.
 
 .. toctree::
    :maxdepth: 1
 
-   CMake intersphinx Examples <intersphinx>
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`search`

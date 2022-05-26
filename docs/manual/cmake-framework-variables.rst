@@ -1,3 +1,5 @@
+.. _cmake-framework-variables:
+
 .. only:: license
 
     Copyright 2017-2022 Vitalii Shylienkov
@@ -20,29 +22,17 @@
     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
     DEALINGS IN THE SOFTWARE.
 
-CMake Framework Documentation
-=============================
+Variables
+---------
 
-Reference Manuals
-#################
+This page documents variables that are provided by CMake-Framework
+or have meaning to CMake-Framework when set by project code.
 
-.. toctree::
-   :maxdepth: 1
-
-   /manual/cmake-framework-env-variables
-   /manual/cmake-framework-modules
-   /manual/cmake-framework-variables
-
-Misc
-####
+For general information on variables, see the
+:ref:`Variables <cmake_latest:cmake language variables>`
+section in the cmake-language manual.
 
 .. toctree::
    :maxdepth: 1
 
-   CMake intersphinx Examples <intersphinx>
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`search`

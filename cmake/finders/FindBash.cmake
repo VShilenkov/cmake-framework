@@ -1,9 +1,55 @@
+#[================[ LICENSE ]==================================================]
+
+MIT License
+
+Copyright (c) 2022 Vitalii Shylienkov
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+#]================]
+
+#[=============================================================================[.rst:
+FindBash
+--------
+
+.. only:: html
+
+   .. contents::
+   
+#]=============================================================================]
+
 # includes ------------------------------------------------------------------- #
 include(FeatureSummary)
 include(FindPackageHandleStandardArgs)
 
 # prologue ------------------------------------------------------------------- #
 CF_find_prologue()
+
+#[=============================================================================[.rst:
+
+Synopsis
+^^^^^^^^
+
+Locates `Bourne Again SHell <http://tiswww.case.edu/php/chet/bash/bashtop.html>`_
+- a GNU Project's shell.
+
+#]=============================================================================]
 
 # declare package properties ------------------------------------------------- #
 set_package_properties(${_cmff_NAME}
@@ -13,10 +59,44 @@ set_package_properties(${_cmff_NAME}
 )
 
 # validate find_package() arguments ------------------------------------------ #
+
+#[=============================================================================[.rst:
+Components
+^^^^^^^^^^
+
+This module doesn't support components
+
+#]=============================================================================]
+
 ## no components supported
 if(${_cmff_NAME}_FIND_COMPONENTS AND NOT ${_cmff_NAME}_FIND_QUIETLY)
     message(WARNING "${CF_lp_Bash} components not supported")
 endif()
+
+#[=============================================================================[.rst:
+
+Hints
+^^^^^
+
+To provide hints to this module, project code may set next:
+
+CMake Variables
+***************
+
+    .. cmake:variable:: Bash_DIR
+                        BASH_DIR
+
+    Path to the installation root of ``bash``
+
+Environment variables
+*********************
+
+    ..  cmake:envvar:: Bash_DIR
+                       BASH_DIR
+
+        Same meaning as regular variables have
+
+#]=============================================================================]
 
 # hints ---------------------------------------------------------------------- #
 set(${_cmff_NAME}_hints "")
@@ -37,11 +117,52 @@ find_program(${_cmff_NAME}_EXECUTABLE
 )
 unset(${_cmff_NAME}_hints)
 
+#[=============================================================================[.rst:
+
+Result variables
+^^^^^^^^^^^^^^^^
+This module will set the following variables in your project:
+
+    .. cmake:variable:: Bash_FOUND
+                        BASH_FOUND
+
+        Indicates if ``bash`` package was found
+
+    .. cmake:variable:: Bash_EXECUTABLE
+
+        Path to the ``bash`` executable
+
+    .. cmake:variable:: Bash_COMMAND
+
+        String that has to be used to call ``bash``
+
+#]=============================================================================]
+
 # build command -------------------------------------------------------------- #
 if(${_cmff_NAME}_EXECUTABLE)
     set(${_cmff_NAME}_COMMAND "${${_cmff_NAME}_EXECUTABLE}" CACHE STRING "The ${_cmff_NAME} command")
     mark_as_advanced(${_cmff_NAME}_EXECUTABLE ${_cmff_NAME}_COMMAND)
 endif()
+
+#[=============================================================================[.rst:
+
+    .. cmake:variable:: Bash_VERSION_STRING
+
+        ``bash`` full version string
+
+    .. cmake:variable:: Bash_VERSION_MAJOR
+
+        ``bash`` major version
+
+    .. cmake:variable:: Bash_VERSION_MINOR
+
+        ``bash`` minor version
+
+    .. cmake:variable:: Bash_VERSION_PATCH
+
+        ``bash`` version patch
+
+#]=============================================================================]
 
 # find version --------------------------------------------------------------- #
 if(${_cmff_NAME}_COMMAND)
@@ -84,3 +205,21 @@ find_package_handle_standard_args(${_cmff_NAME}
 
 # epilogue ------------------------------------------------------------------- #
 CF_find_epilogue()
+
+#[=============================================================================[.rst:
+
+Example usage
+^^^^^^^^^^^^^
+
+.. code-block:: cmake
+
+    find_package(Bash REQUIRED)
+
+    execute_process(
+        COMMAND         ${Bash_COMMAND} -version
+        OUTPUT_VARIABLE Bash_VERSION_RAW
+        ERROR_VARIABLE  Bash_VERSION_RAW
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
+
+#]=============================================================================]
