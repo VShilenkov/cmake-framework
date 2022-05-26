@@ -1,39 +1,39 @@
-# Requirements to CMake --------------------------------------------------------
+# Requirements to CMake ------------------------------------------------------ #
 cmake_minimum_required(VERSION 3.12)
 
-# Project declaration ----------------------------------------------------------
+# Project declaration -------------------------------------------------------- #
 project(CMakeFramework
     VERSION      0.0.1
     DESCRIPTION  "Collection of modules, finders and scripts"
-    #HOMEPAGE_URL https://github.com/VShilenkov/cmake
+    HOMEPAGE_URL https://cmake-framework.readthedocs.io/
     LANGUAGES    NONE
 )
 
-# Includes ---------------------------------------------------------------------
+# Includes ------------------------------------------------------------------- #
 
 include(FeatureSummary)
 
 # framework init
 include(cmake/modules/Init.cmake)
 
-include(GlobalOptions)
-#find_package(Pip3)
-#find_package(Virtualenv)
+# CMake native modules
 
+# Utility modules
+include(GlobalOptions)
+
+# Documenting ---------------------------------------------------------------- #
 if(WITH_DOCUMENTING)
     add_subdirectory(docs)
 endif()
-#find_pip_package(sphinxcontrib-moderncmakedomain)
 
-#include(UseVirtualenv)
+# Testing -------------------------------------------------------------------- #
+if(WITH_UNIT_TEST)
+    add_subdirectory(tests)
+endif()
 
-#virtualenv_install(pyxml2dict)
-#find_pip_package(pygccxml)
+#TODO:VSH installation
 
-#find_package(Sphinx COMPONENTS apidoc quickstart)
-#CF_dump_variables(EXTRA_CLEAN)
-
-# Feature summary --------------------------------------------------------------
+# Feature summary ------------------------------------------------------------ #
 feature_summary(WHAT ALL
     DESCRIPTION "-- [${PROJECT_NAME} summary] ---------------------------------"
 )

@@ -31,6 +31,10 @@ Utility Modules
 These modules are loaded using the 
 :cmake:command:`include() <cmake_latest:command:include>` command.
 
+.. toctree::
+   :maxdepth: 1
+
+   /module/Init
 
 
 Find Modules
