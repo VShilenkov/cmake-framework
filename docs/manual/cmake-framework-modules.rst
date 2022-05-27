@@ -37,6 +37,17 @@ These modules are loaded using the
    /module/Init
 
 
+Default included
+^^^^^^^^^^^^^^^^
+
+These modules are included by default during CMake Framework initialization.
+
+.. toctree::
+   :maxdepth: 1
+
+   /module/ControlFlow
+
+
 Find Modules
 ^^^^^^^^^^^^
 
