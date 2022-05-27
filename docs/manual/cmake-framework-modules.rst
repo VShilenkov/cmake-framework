@@ -46,6 +46,7 @@ These modules are included by default during CMake Framework initialization.
    :maxdepth: 1
 
    /module/ControlFlow
+   /module/Debug
 
 
 Find Modules
