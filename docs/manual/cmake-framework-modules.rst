@@ -61,4 +61,5 @@ They are normally called through the
    :maxdepth: 1
 
    /module/FindBash
+   /module/FindCMD
 

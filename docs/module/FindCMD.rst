@@ -1,0 +1,1 @@
+.. cmake-module:: ../../cmake/finders/FindCMD.cmake
