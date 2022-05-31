@@ -1,0 +1,1 @@
+.. cmake-module:: ../../cmake/finders/FindPip3.cmake

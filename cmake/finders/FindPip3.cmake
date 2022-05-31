@@ -1,9 +1,55 @@
+#[================[ LICENSE ]==================================================]
+
+MIT License
+
+Copyright (c) 2022 Vitalii Shylienkov
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+#]================]
+
+#[=============================================================================[.rst:
+FindPip3
+--------
+
+.. only:: html
+
+   .. contents::
+   
+#]=============================================================================]
+
+
 # includes ------------------------------------------------------------------- #
 include(FeatureSummary)
 include(FindPackageHandleStandardArgs)
 
 # prologue ------------------------------------------------------------------- #
 CF_find_prologue()
+
+#[=============================================================================[.rst:
+
+Synopsis
+^^^^^^^^
+
+Locates `package installer for Python <https://pip.pypa.io/en/stable/>`_.
+
+#]=============================================================================]
 
 # declare package properties ------------------------------------------------- #
 set_package_properties(${_cmff_NAME}
@@ -13,10 +59,60 @@ set_package_properties(${_cmff_NAME}
 )
 
 # validate find_package() arguments ------------------------------------------ #
+#[=============================================================================[.rst:
+Components
+^^^^^^^^^^
+
+This module doesn't support components
+
+#]=============================================================================]
+
 ## no components supported
 if(${_cmff_NAME}_FIND_COMPONENTS AND NOT ${_cmff_NAME}_FIND_QUIETLY)
     message(WARNING "${CF_lp_Pip3} components not supported")
 endif()
+
+# requirements --------------------------------------------------------------- #
+#[=============================================================================[.rst:
+Requirements
+^^^^^^^^^^^^
+
+- ``Python 3 Interpreter``
+
+    This module uses :cmake:module:`FindPython3 <cmake_latest:module:FindPython3>`
+    to locate ``Python 3 Interpreter``
+
+#]=============================================================================]
+
+if(NOT DEFINED Python3_COMMAND)
+    find_package(Python3 COMPONENTS Interpreter REQUIRED)
+    set(Python3_COMMAND "${Python3_EXECUTABLE}" CACHE STRING "Command to invoke Python3")
+endif()
+
+#[=============================================================================[.rst:
+
+Hints
+^^^^^
+
+To provide hints to this module, project code may set next:
+
+CMake Variables
+***************
+
+    .. cmake:variable:: Pip3_DIR
+                        PIP3_DIR
+
+    Path to the installation root of ``pip3``
+
+Environment variables
+*********************
+
+    ..  cmake:envvar:: Pip3_DIR
+                       PIP3_DIR
+
+        Same meaning as regular variables have
+
+#]=============================================================================]
 
 # hints ---------------------------------------------------------------------- #
 set(${_cmff_NAME}_hints "")
@@ -26,11 +122,6 @@ foreach(dir ${_cmff_NAME}_DIR ${_CMFF_NAME}_DIR)
     endif()
 endforeach()
 unset(dir)
-
-if(NOT DEFINED Python3_COMMAND)
-    find_package(Python3 COMPONENTS Interpreter REQUIRED)
-    set(Python3_COMMAND "${Python3_EXECUTABLE}" CACHE STRING "Command to invoke Python3")
-endif()
 
 execute_process(
     COMMAND ${Python3_COMMAND} -m site --user-base
@@ -83,14 +174,54 @@ if(NOT ${_cmff_NAME}_EXECUTABLE)
     CF_execute_process_wipe(pip_command)
 endif()
 
+#[=============================================================================[.rst:
+
+Result variables
+^^^^^^^^^^^^^^^^
+This module will set the following variables in your project:
+
+    .. cmake:variable:: Pip3_FOUND
+                        PIP3_FOUND
+
+        Indicates if ``Pip3`` package was found
+
+    .. cmake:variable:: Pip3_EXECUTABLE
+
+        Path to the ``pip3`` executable
+
+    .. cmake:variable:: Pip3_COMMAND
+
+        String that has to be used to call ``pip3``
+
+#]=============================================================================]
+
 # build command -------------------------------------------------------------- #
 if(${_cmff_NAME}_EXECUTABLE)
     set(${_cmff_NAME}_COMMAND "${${_cmff_NAME}_EXECUTABLE}" CACHE STRING "The ${_cmff_NAME} command")
     mark_as_advanced(${_cmff_NAME}_EXECUTABLE ${_cmff_NAME}_COMMAND)
 endif()
 
-# find version --------------------------------------------------------------- #
+#[=============================================================================[.rst:
 
+    .. cmake:variable:: Pip3_VERSION_STRING
+
+        ``pip3`` full version string
+
+    .. cmake:variable:: Pip3_VERSION_MAJOR
+
+        ``pip3`` major version
+
+    .. cmake:variable:: Pip3_VERSION_MINOR
+
+        ``pip3`` minor version
+
+    .. cmake:variable:: Pip3_VERSION_PATCH
+
+        ``pip3`` version patch
+
+#]=============================================================================]
+
+# find version --------------------------------------------------------------- #
 if(${_cmff_NAME}_COMMAND)
     execute_process(
         COMMAND
@@ -193,3 +324,21 @@ find_package_handle_standard_args(${_cmff_NAME}
 
 # epilogue ------------------------------------------------------------------- #
 CF_find_epilogue()
+
+#[=============================================================================[.rst:
+
+Example usage
+^^^^^^^^^^^^^
+
+.. code-block:: cmake
+
+    find_package(Pip3 REQUIRED)
+
+    execute_process(
+        COMMAND         ${Pip3_COMMAND} -version
+        OUTPUT_VARIABLE Pip3_VERSION_RAW
+        ERROR_VARIABLE  Pip3_VERSION_RAW
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
+
+#]=============================================================================]
