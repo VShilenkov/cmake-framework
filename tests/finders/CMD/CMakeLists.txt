@@ -26,38 +26,33 @@ SOFTWARE.
 
 cmake_minimum_required(VERSION 3.21)
 
-project(CF-Find-Bash-Test)
+project(CF-Find-CMD-Test)
 
-set(__test_lp "[CF-test] FindBash:")
+set(__test_lp "[CF-test] FindCMD:")
 
 CF_test_collect_status(before)
 
-find_package(Bash)
+find_package(CMD)
 
 CF_test_collect_status(after)
 
-CF_not_defined(Bash_FOUND FATAL_ERROR)
+CF_not_defined(CMD_FOUND FATAL_ERROR)
 
-if(Bash_FOUND)
+if(CMD_FOUND)
 
     CF_test_expect_targets(${PROJECT_NAME}_imported_targets_before
                            ${PROJECT_NAME}_imported_targets_after
         TARGETS
-            Bash::Bash
+            CMD::CMD
     )
 
     CF_test_expect_variables(${PROJECT_NAME}_variables_before
                              ${PROJECT_NAME}_variables_after
         VARIABLES
-            BASH_FOUND
-            Bash_FOUND
-            Bash_VERSION_MAJOR
-            Bash_VERSION_MINOR
-            Bash_VERSION_PATCH
-            Bash_VERSION_STRING
+            CMD_FOUND
         CACHED
-            Bash_COMMAND
-            Bash_EXECUTABLE
+            CMD_COMMAND
+            CMD_EXECUTABLE
     )
 
 else()
@@ -68,10 +63,9 @@ else()
     CF_test_expect_variables(${PROJECT_NAME}_variables_before
                              ${PROJECT_NAME}_variables_after
         VARIABLES
-            BASH_FOUND
-            Bash_FOUND
+            CMD_FOUND
         CACHED
-            Bash_EXECUTABLE
+            CMD_EXECUTABLE
     )
 endif()
 

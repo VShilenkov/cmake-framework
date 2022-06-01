@@ -102,7 +102,7 @@ CMake Variables
     .. cmake:variable:: Pip3_DIR
                         PIP3_DIR
 
-    Path to the installation root of ``pip3``
+        Path to the installation root of ``pip3``
 
 Environment variables
 *********************

@@ -84,7 +84,7 @@ CMake Variables
 
     .. cmake:variable:: CMD_DIR
 
-    Path to the installation root of ``cmd``
+        Path to the installation root of ``cmd``
 
 Environment variables
 *********************
@@ -114,6 +114,32 @@ find_program(${_cmff_NAME}_EXECUTABLE
     DOC           "The ${_cmff_NAME} executable"
 )
 unset(${_cmff_NAME}_hints)
+
+#[=============================================================================[.rst:
+
+Imported Targets
+^^^^^^^^^^^^^^^^
+If :cmake:prop_gbl:`CMAKE_ROLE <cmake_latest:prop_gbl:CMAKE_ROLE>` is ``PROJECT``
+this module defines the following :ref:`Imported Targets <Imported Targets>`:
+
+    ``CMD::CMD``
+
+        ``cmd`` target, defined if ``cmd`` is found.
+
+#]=============================================================================]
+
+# imported targets ----------------------------------------------------------- #
+get_property(_${_cmff_NAME}_CMAKE_ROLE GLOBAL PROPERTY CMAKE_ROLE)
+if(${_cmff_NAME}_EXECUTABLE AND _${_cmff_NAME}_CMAKE_ROLE STREQUAL "PROJECT")
+    if(NOT TARGET ${_cmff_NAME}::${_cmff_NAME})
+        add_executable(${_cmff_NAME}::${_cmff_NAME} IMPORTED)
+        set_property(TARGET ${_cmff_NAME}::${_cmff_NAME}
+            PROPERTY 
+                IMPORTED_LOCATION "${${_cmff_NAME}_EXECUTABLE}")
+    endif()
+endif()
+unset(_${_cmff_NAME}_CMAKE_ROLE)
+
 
 #[=============================================================================[.rst:
 

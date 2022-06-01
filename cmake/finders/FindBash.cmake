@@ -86,7 +86,7 @@ CMake Variables
     .. cmake:variable:: Bash_DIR
                         BASH_DIR
 
-    Path to the installation root of ``bash``
+        Path to the installation root of ``bash``
 
 Environment variables
 *********************
