@@ -99,6 +99,48 @@ macro(CF_not_exists __path_var __mode)
 endmacro()
 
 #[=============================================================================[.rst:
+.. cmake:command:: CF_not_defined
+
+    Check if provided path not exists and print output:
+
+    .. code-block:: cmake
+
+        CF_not_defined(<var> <mode> [<custom_message>])
+    
+    ``var``
+
+        Variable to check if defined
+
+    ``mode``
+
+        First argument of :cmake:command:`message() <cmake_latest:command:message>`
+        used to print output.
+
+    ``custom_message``
+
+        Additional information to print
+
+    Example:
+
+    .. code-block:: cmake
+
+        CF_not_defined(BUILD_TYPE FATAL_ERROR "BUILD_TYPE is mandatory")
+
+#]=============================================================================]
+macro(CF_not_defined __var __mode)
+    if(NOT DEFINED ${__var})
+       set(__message "┌${CF_lp_ControlFlow} Variable not defined `${__var}`")
+        if(${ARGC} GREATER 2)
+            string(APPEND __message "\n├ ${ARGV2}")
+        endif()
+        string(APPEND __message "\n└${CF_lp_ControlFlow} CF_not_defined")
+        message(${__mode} "${__message}")
+        unset(__message)
+    endif()
+endmacro()
+
+
+#[=============================================================================[.rst:
 .. cmake:command:: CF_execute_process_fails
 
     Check if :cmake:command:`execute_process() <cmake_latest:command:execute_process>`

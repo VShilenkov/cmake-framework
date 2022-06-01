@@ -88,6 +88,47 @@ macro(CF_execute_process_wipe _prefix)
     unset(_suffix)
 endmacro()
 
+#[=============================================================================[.rst:
+.. cmake:command:: CF_list_difference
+
+    Finds set-theoretic difference of two lists (<left_list> - <right_list>) and
+    stores result in <out_var>
+
+    .. code-block:: cmake
+
+        CF_list_difference(<left_list> <right_list> <out_var>)
+
+    Example:
+
+    .. code-block:: cmake
+
+        set(A 1 2 3 4 5)
+        set(B 4 5 6 7 8)
+        CF_list_difference(A B C)
+        CF_print_list(C)
+
+    Output expected::
+
+        1
+        2
+        3
+
+#]=============================================================================]
+macro(CF_list_difference _lhs _rhs _out)
+    set(_inner_out "")
+    foreach(_var IN LISTS ${_lhs})
+        list(FIND ${_rhs} ${_var} i)
+        if(i EQUAL -1)
+            list(APPEND _inner_out ${_var})
+        endif()
+    endforeach()
+    set(${_out} "${_inner_out}")
+    unset(_inner_out)
+    unset(_var)
+    unset(i)
+endmacro()
+
+
 # Epilogue ------------------------------------------------------------------- #
 CF_module_epilogue()
 # ---------------------------------------------------------------------------- #
