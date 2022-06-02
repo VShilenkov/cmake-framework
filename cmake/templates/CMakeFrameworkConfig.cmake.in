@@ -1,0 +1,22 @@
+@PACKAGE_INIT@
+
+set_and_check(CMakeFramework-ROOT "@CMAKE_INSTALL_PREFIX@/@CMakeFramework-INSTALL_DIR@")
+
+if(EXISTS ${CMakeFramework-ROOT}/modules/Init.cmake)
+    include(${CMakeFramework-ROOT}/modules/Init.cmake)
+else()
+    message(FATAL_ERROR "CMake framework cannot be initialized."
+                        "${CMakeFramework-ROOT}/modules/Init.cmake"
+                        " - not found"
+    )
+endif()
+
+# includes ------------------------------------------------------------------- #
+include(FeatureSummary)
+
+# declare package properties ------------------------------------------------- #
+set_package_properties(CMakeFramework
+    PROPERTIES
+        URL         "https://cmake-framework.readthedocs.io/"
+        DESCRIPTION "Collection of modules, finders and scripts"
+)

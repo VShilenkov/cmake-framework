@@ -27,40 +27,37 @@ SOFTWARE.
 # Requirements to CMake ------------------------------------------------------ #
 cmake_minimum_required(VERSION 3.12)
 
-# Project declaration -------------------------------------------------------- #
-project(CMakeFramework
-    VERSION      0.0.1
-    DESCRIPTION  "Collection of modules, finders and scripts"
-    HOMEPAGE_URL https://cmake-framework.readthedocs.io/
-    LANGUAGES    NONE
+# Includes ---------------------------------------------------------------------
+include(CMakePackageConfigHelpers)
+
+CF_not_defined(${PROJECT_NAME}-INSTALL_DIR FATAL_ERROR)
+
+set(${PROJECT_NAME}-CONFIG_INSTALL_DIR "${PROJECT_NAME}")
+
+# Create config and version files for CMakeFramework ------------------------- #
+configure_package_config_file(${PROJECT_NAME}Config.cmake.in
+                              ${PROJECT_NAME}Config.cmake
+    INSTALL_DESTINATION "${${PROJECT_NAME}-CONFIG_INSTALL_DIR}"
+    PATH_VARS           CMakeFramework-INSTALL_DIR
+    NO_CHECK_REQUIRED_COMPONENTS_MACRO
 )
 
-# Includes ------------------------------------------------------------------- #
-
-include(FeatureSummary)
-
-# framework init
-include(cmake/modules/Init.cmake)
-
-# CMake native modules
-
-# Utility modules
-include(GlobalOptions)
-
-# Documenting ---------------------------------------------------------------- #
-if(WITH_DOCUMENTING)
-    add_subdirectory(docs)
+if(NOT CMAKE_VERSION LESS "3.14")
+    write_basic_package_version_file(${PROJECT_NAME}Version.cmake
+        VERSION       ${PROJECT_VERSION}
+        COMPATIBILITY AnyNewerVersion
+        ARCH_INDEPENDENT
+    )
+else()
+    write_basic_package_version_file(${PROJECT_NAME}Version.cmake
+        VERSION       ${PROJECT_VERSION}
+        COMPATIBILITY AnyNewerVersion
+    )
 endif()
 
-# Testing -------------------------------------------------------------------- #
-if(WITH_UNIT_TEST)
-    add_subdirectory(tests)
-endif()
-
-# Installation --------------------------------------------------------------- #
-add_subdirectory(cmake)
-
-# Feature summary ------------------------------------------------------------ #
-feature_summary(WHAT ALL
-    DESCRIPTION "-- [${PROJECT_NAME} summary] ---------------------------------"
+# installing config and version files ---------------------------------------- #
+install(FILES   ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+                ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Version.cmake
+    DESTINATION ${${PROJECT_NAME}-CONFIG_INSTALL_DIR}
+    COMPONENT   package::config
 )

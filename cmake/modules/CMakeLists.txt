@@ -27,40 +27,19 @@ SOFTWARE.
 # Requirements to CMake ------------------------------------------------------ #
 cmake_minimum_required(VERSION 3.12)
 
-# Project declaration -------------------------------------------------------- #
-project(CMakeFramework
-    VERSION      0.0.1
-    DESCRIPTION  "Collection of modules, finders and scripts"
-    HOMEPAGE_URL https://cmake-framework.readthedocs.io/
-    LANGUAGES    NONE
+CF_not_defined(${PROJECT_NAME}-INSTALL_DIR FATAL_ERROR)
+
+# installation of utility modules -------------------------------------------- #
+install(FILES   GlobalOptions.cmake
+                DocSphinx.cmake
+                Init.cmake
+                UseVirtualenv.cmake
+    DESTINATION "${${PROJECT_NAME}-INSTALL_DIR}/modules"
+    COMPONENT   framework::modules
 )
 
-# Includes ------------------------------------------------------------------- #
-
-include(FeatureSummary)
-
-# framework init
-include(cmake/modules/Init.cmake)
-
-# CMake native modules
-
-# Utility modules
-include(GlobalOptions)
-
-# Documenting ---------------------------------------------------------------- #
-if(WITH_DOCUMENTING)
-    add_subdirectory(docs)
-endif()
-
-# Testing -------------------------------------------------------------------- #
-if(WITH_UNIT_TEST)
-    add_subdirectory(tests)
-endif()
-
-# Installation --------------------------------------------------------------- #
-add_subdirectory(cmake)
-
-# Feature summary ------------------------------------------------------------ #
-feature_summary(WHAT ALL
-    DESCRIPTION "-- [${PROJECT_NAME} summary] ---------------------------------"
+install(FILES   UseVirtualenv/venv_executor.bash.in
+                UseVirtualenv/venv_executor.batch.in
+    DESTINATION "${${PROJECT_NAME}-INSTALL_DIR}/modules/UseVirtualenv"
+    COMPONENT   framework::modules
 )
