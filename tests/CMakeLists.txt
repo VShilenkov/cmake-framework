@@ -63,7 +63,7 @@ macro(CF_test_collect_status __suffix)
 endmacro()
 
 macro(CF_test_expect_targets __before __after)
-    set(multiValueArgs TARGETS)
+    set(multiValueArgs TARGETS OPTIONAL)
     cmake_parse_arguments(_opt "" "" "${multiValueArgs}" ${ARGN})
 
     CF_list_difference(${__after} ${__before} unexpected_targets)
@@ -78,6 +78,10 @@ macro(CF_test_expect_targets __before __after)
         CF_list_difference(unexpected_targets _opt_TARGETS unexpected_targets)
     endif()
 
+    if(_opt_OPTIONAL)
+        CF_list_difference(unexpected_targets _opt_OPTIONAL unexpected_targets)
+    endif()
+
     list(LENGTH unexpected_targets _length_diff)
     if(_length_diff GREATER 0)
         message(STATUS "${__test_lp} Unexpected targets introduced: ")
@@ -89,7 +93,7 @@ macro(CF_test_expect_targets __before __after)
 endmacro()
 
 macro(CF_test_expect_commands __before __after)
-    set(multiValueArgs COMMANDS)
+    set(multiValueArgs COMMANDS OPTIONAL)
     cmake_parse_arguments(_opt "" "" "${multiValueArgs}" ${ARGN})
 
     CF_list_difference(${__after} ${__before} unexpected_commands)
@@ -104,6 +108,10 @@ macro(CF_test_expect_commands __before __after)
         CF_list_difference(unexpected_commands _opt_COMMANDS unexpected_commands)
     endif()
 
+    if(_opt_OPTIONAL)
+        CF_list_difference(unexpected_commands _opt_OPTIONAL unexpected_commands)
+    endif()
+
     list(LENGTH unexpected_commands _length_diff)
     if(_length_diff GREATER 0)
         message(STATUS "${__test_lp} Unexpected commands introduced: ")
@@ -115,7 +123,7 @@ macro(CF_test_expect_commands __before __after)
 endmacro()
 
 macro(CF_test_expect_macros __before __after)
-    set(multiValueArgs MACROS)
+    set(multiValueArgs MACROS OPTIONAL)
     cmake_parse_arguments(_opt "" "" "${multiValueArgs}" ${ARGN})
 
     CF_list_difference(${__after} ${__before} unexpected_macros)
@@ -130,6 +138,10 @@ macro(CF_test_expect_macros __before __after)
         CF_list_difference(unexpected_macros _opt_MACROS unexpected_macros)
     endif()
 
+    if(_opt_OPTIONAL)
+        CF_list_difference(unexpected_macros _opt_OPTIONAL unexpected_macros)
+    endif()
+
     list(LENGTH unexpected_macros _length_diff)
     if(_length_diff GREATER 0)
         message(STATUS "${__test_lp} Unexpected macros introduced: ")
@@ -141,7 +153,7 @@ macro(CF_test_expect_macros __before __after)
 endmacro()
 
 macro(CF_test_expect_variables __before __after)
-    set(multiValueArgs VARIABLES CACHED)
+    set(multiValueArgs VARIABLES CACHED OPTIONAL)
     cmake_parse_arguments(_opt "" "" "${multiValueArgs}" ${ARGN})
 
     CF_list_difference(${__after} ${__before} unexpected_variables)
@@ -164,6 +176,10 @@ macro(CF_test_expect_variables __before __after)
         endforeach()
         message(STATUS "${__test_lp} All expected cache variables defined")
         CF_list_difference(unexpected_variables _opt_CACHED unexpected_variables)
+    endif()
+
+    if(_opt_OPTIONAL)
+        CF_list_difference(unexpected_variables _opt_OPTIONAL unexpected_variables)
     endif()
 
     list(LENGTH unexpected_variables _length_diff)

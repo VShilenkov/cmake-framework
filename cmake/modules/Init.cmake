@@ -177,6 +177,10 @@ endmacro()
 
             same as :cmake:variable:`_cmff_NAME` in uppercase
 
+        .. cmake:variable:: _cMFF_NAME
+
+            same as :cmake:variable:`_cmff_NAME` in lowercase
+
         .. cmake:variable:: CF_lp_<package_name>
 
             Logging prefix for this find module. Cached.
@@ -185,6 +189,7 @@ endmacro()
 macro(CF_find_prologue)
     set(_cmff_NAME "${CMAKE_FIND_PACKAGE_NAME}")
     string(TOUPPER "${_cmff_NAME}" _CMFF_NAME)
+    string(TOLOWER "${_cmff_NAME}" _cMFF_NAME)
     set(CF_lp_${_cmff_NAME} "${CF_lp} ${_cmff_NAME}:" CACHE INTERNAL "Find${_cmff_NAME} logging prefix")
 endmacro()
 
@@ -218,6 +223,7 @@ endmacro()
 
 macro(CF_find_epilogue)
     # clean-up
+    unset(_cMFF_NAME)
     unset(_CMFF_NAME)
     unset(_cmff_NAME)
 endmacro()
