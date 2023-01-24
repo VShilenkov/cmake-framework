@@ -204,6 +204,7 @@ macro(CF_test_expect_variables __before __after)
 endmacro()
 
 add_subdirectory(finders)
+add_subdirectory(modules)
 
 ## TODO:VSH initial state check
 

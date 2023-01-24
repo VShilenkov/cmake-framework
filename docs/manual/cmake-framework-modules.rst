@@ -48,6 +48,7 @@ These modules are included by default during CMake Framework initialization.
    /module/ControlFlow
    /module/Debug
    /module/Printer
+   /module/UseRailroad
    /module/Utilities
 
 Find Modules

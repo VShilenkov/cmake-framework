@@ -194,8 +194,8 @@ endif()
 
 # handle components, version, quiet, required and other flags ---------------- #
 find_package_handle_standard_args(${_cmff_NAME}
-    REQUIRED_VARS ${_cmff_NAME}_COMMAND
-                  ${_cmff_NAME}_JAR
+    REQUIRED_VARS ${_cmff_NAME}_JAR
+                  ${_cmff_NAME}_COMMAND
     FAIL_MESSAGE  "rr.war not found, installation: https://github.com/GuntherRademacher/rr/releases"
     HANDLE_COMPONENTS
 )

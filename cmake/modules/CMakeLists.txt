@@ -34,6 +34,7 @@ install(FILES   GlobalOptions.cmake
                 DocSphinx.cmake
                 Init.cmake
                 UseVirtualenv.cmake
+                UseRailroad.cmake
     DESTINATION "${${PROJECT_NAME}-INSTALL_DIR}/modules"
     COMPONENT   framework::modules
 )

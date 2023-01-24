@@ -24,18 +24,4 @@ SOFTWARE.
 
 #]================]
 
-# Requirements to CMake ------------------------------------------------------ #
-cmake_minimum_required(VERSION 3.12)
-
-CF_not_defined(${PROJECT_NAME}-INSTALL_DIR FATAL_ERROR)
-
-# installation of find modules ----------------------------------------------- #
-install(FILES   FindBash.cmake
-                FindCMD.cmake
-                FindPip3.cmake
-                FindSphinx.cmake
-                FindVirtualenv.cmake
-                FindRailroad.cmake
-    DESTINATION "${${PROJECT_NAME}-INSTALL_DIR}/finders"
-    COMPONENT   framework::finders
-)
+add_subdirectory(UseRailroad)
